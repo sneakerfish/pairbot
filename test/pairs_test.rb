@@ -44,4 +44,12 @@ describe Pairs do
             pair.working_on?("a").must_equal "something"
             pair.working_on?("b").must_equal "something"
           end
+
+          it "can work on something else" do
+            pair.joins("a", "b")
+            pair.works_on("a", "something")
+            pair.works_on("a", "something else")
+            pair.working_on?("a").must_equal "something else"
+            pair.working_on?("b").must_equal "something else"
+          end
 end
