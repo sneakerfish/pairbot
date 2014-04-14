@@ -30,12 +30,18 @@ describe Pairs do
           end
 
           it "can assign two, have one join, have another leave" do
-            pair.joins("a", "b")  # now a,b
-            pair.joins("a", "c")  # now a,b,c
-            pair.paired_with("a").must_equal ["b", "c"]
-            pair.joins("d", "a")  # now a,d and b,c
-            pair.paired_with("a").must_equal ["d"]
-            pair.paired_with("b").must_equal ["c"]
+            pair.joins("abe", "ben")  # now a,b
+            pair.joins("abe", "chuck")  # now a,b,c
+            pair.paired_with("abe").must_equal ["ben", "chuck"]
+            pair.joins("doris", "abe")  # now a,d and b,c
+            pair.paired_with("abe").must_equal ["doris"]
+            pair.paired_with("ben").must_equal ["chuck"]
           end
  
+          it "can work on something" do
+            pair.joins("a", "b")
+            pair.works_on("a", "something")
+            pair.working_on?("a").must_equal "something"
+            pair.working_on?("b").must_equal "something"
+          end
 end

@@ -2,10 +2,12 @@ require 'set'
 
 class Pair
   attr_reader :pair, :time
+  attr_accessor :works_on
 
-  def initialize(name1, name2)
+  def initialize(name1, name2, works_on=nil)
     @pair = Set.new([name1, name2])
     @time = Time.now
+    @works_on = works_on
   end
 
   def member?(name)
@@ -79,6 +81,18 @@ class Pairs
     @names += [name1, name2]
   end
   
+  def works_on(name, task)
+    if paired?(name)
+      find(name).works_on = task
+    end
+  end
+
+  def working_on?(name)
+    if paired?(name)
+      find(name).works_on
+    end
+  end
+
   private
   def find(name)
     @pairs.each do |pair|
