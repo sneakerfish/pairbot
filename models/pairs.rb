@@ -17,7 +17,7 @@ class Pair
   def members
     @pair.to_a
   end
-  
+
   def remove(name)
     @pair.delete(name)
   end
@@ -36,7 +36,7 @@ class Pairs
     @pairs = []
     @names = Set.new
   end
-  
+
   def remove_from_pair(name)
     @pairs.each_with_index do |pair, idx|
             if pair.member?(name)
@@ -80,14 +80,14 @@ class Pairs
     end
     @names += [name1, name2]
   end
-  
-  def works_on(name, task)
+
+  def start_work_on(name, task)
     if paired?(name)
       find(name).works_on = task
     end
   end
 
-  def working_on?(name)
+  def working_on(name)
     if paired?(name)
       find(name).works_on
     end

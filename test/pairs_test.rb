@@ -15,14 +15,14 @@ describe Pairs do
             pair.paired?("b").must_equal true
           end
 
-          it "can add to a pair" do 
+          it "can add to a pair" do
             pair.joins("a", "b")
             pair.joins("b", "c")
             pair.paired?("a").must_equal true
             pair.paired?("b").must_equal true
           end
 
-          it "can remove a person from a pair" do 
+          it "can remove a person from a pair" do
             pair.joins("a", "b")
             pair.remove_from_pair("a")
             pair.paired?("a").must_equal false
@@ -37,19 +37,19 @@ describe Pairs do
             pair.paired_with("abe").must_equal ["doris"]
             pair.paired_with("ben").must_equal ["chuck"]
           end
- 
+
           it "can work on something" do
             pair.joins("a", "b")
-            pair.works_on("a", "something")
-            pair.working_on?("a").must_equal "something"
-            pair.working_on?("b").must_equal "something"
+            pair.start_work_on("a", "something")
+            pair.working_on("a").must_equal "something"
+            pair.working_on("b").must_equal "something"
           end
 
           it "can work on something else" do
             pair.joins("a", "b")
-            pair.works_on("a", "something")
-            pair.works_on("a", "something else")
-            pair.working_on?("a").must_equal "something else"
-            pair.working_on?("b").must_equal "something else"
+            pair.start_work_on("a", "something")
+            pair.start_work_on("a", "something else")
+            pair.working_on("a").must_equal "something else"
+            pair.working_on("b").must_equal "something else"
           end
 end
