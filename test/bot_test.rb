@@ -4,17 +4,15 @@ require 'cinch/test'
 require 'pairs'
 require 'pairbot'
 
+include Cinch::Test
+
 describe PairBot do
-          include Cinch::Test
-          # let (:bot) { make_bot(PairBot, {}) }
+          let (:bot) { make_bot(PairBot, {}) }
 
           it "can create a pair" do
-            bot = make_bot(PairBot, {})
-            puts "=" * 80
-            puts "This is a test message"
-
             msg = make_message(bot, "!pair with abe")
-            get_replies(msg)
+            replies = get_replies(msg)
+            replies[0].text.must_equal "You are now paired with abe"
           end
 
 end

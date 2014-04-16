@@ -1,34 +1,29 @@
 require 'cinch'
 require 'pairs'
 
-# class PairBot
-#   include Cinch::Plugin
-#   listen_to :channel
-#   match /pair with (.+)/
+class PairBot
+  include Cinch::Plugin
+  match /pair with (.+)/, method: :join_pair
+  match /pairs/, method: :query_pairs
+  match /^command3 (.+)/, use_prefix: false
 
-#   def initialize(bot)
-#     @pairs = Pairs.new
-#     @users = {}
-#   end
-
-#   def execute(m, nick)
-#     @pairs.join(m.user.nick, nick)
-#     m.reply "You are now paired with #{nick}"
-#   end
-# end
-
-bot = Cinch::Bot.new do
-  configure do |c|
-    c.server = 'irc.freenode.org'
-    c.channels = ['#cinch-bots']
-    c.nick = "pairbot"
-    c.verbose = true
-    # c.plugins.plugins = [PairBot]
+  def initialize(*args)
+    super
+    @pairs = Pairs.new
+    @users = {}
   end
 
-  on :message, /^!pair with (.+)/ do |m, query|
-    m.reply "Pairing with #{query}"
+  def join_pair(m, nick)
+    @pairs.joins(nick, m.user.nick)
+    m.reply "You are now paired with #{@pairs.paired_with(m.user.nick).join(', ')}"
+  end
+
+  def query_pairs(m)
+    m.reply "Pairs are: xxx"
+  end
+
+  def execute(m, arg)
+    m.reply "command3: arg: #{arg}"
   end
 end
 
-bot.start
