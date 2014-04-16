@@ -93,6 +93,12 @@ class Pairs
     end
   end
 
+  def list_pairs
+    @pairs.collect do |pair|
+            [pair.members, pair.works_on]
+          end
+  end
+
   private
   def find(name)
     @pairs.each do |pair|

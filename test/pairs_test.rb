@@ -52,4 +52,10 @@ describe Pairs do
             pair.working_on("a").must_equal "something else"
             pair.working_on("b").must_equal "something else"
           end
+
+          it "can list pairs" do
+            pair.joins("a", "b")
+            pair.joins("c", "d")
+            pair.list_pairs.must_equal [[["a", "b"], nil], [["c", "d"], nil]]
+          end
 end
