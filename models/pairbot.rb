@@ -37,8 +37,8 @@ class PairBot
   def query_pairs(m)
     message = "Pairs are:\n"
     @pairs.list_pairs.each do |pair, works_on|
-                       message += pair.join(" and ") +
-                                       (works_on.nil? ? "" : " on " + works_on) + "\n"
+                       message += pair.join("+") +
+                                       (works_on.nil? ? "" : " on " + works_on) + "; "
                      end
     m.reply message
   end
