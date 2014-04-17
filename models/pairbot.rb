@@ -4,6 +4,7 @@ require 'pairs'
 class PairBot
   include Cinch::Plugin
   match /^pair with (.+)/, method: :join_pair, use_prefix: false
+  match /^pairs (.+)/, method: :my_pair, use_prefix: false
   match /^pairs/, method: :query_pairs, use_prefix: false
   match /^pair on (.+)/, method: :work_on, use_prefix: false
   match /^pair(bot)?\:? help/, method: :pair_help, use_prefix: false
@@ -17,7 +18,11 @@ class PairBot
 
   def join_pair(m, nick)
     @pairs.joins(nick, m.user.nick)
-    m.reply "You are now paired with #{paired_with(m.user.nick)}"
+    m.reply "#{m.user.nick} is now paired with #{paired_with(m.user.nick)}"
+  end
+
+  def my_pair(m, nick)
+    m.reply " #{m.user.nick} is paired with #{paired_with(m.user.nick)}"
   end
 
   def leave_pair(m)
